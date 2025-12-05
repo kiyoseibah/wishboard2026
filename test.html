@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Supabase Test Insert</title>
+</head>
+<body>
+  <h1>Supabase Test Insert</h1>
+
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/+esm";
+
+    const SUPABASE_URL = "https://qvsaqfndtkveyqqovwqz.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2c2FxZm5kdGt2ZXlxcW92d3F6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4NTIwODEsImV4cCI6MjA4MDQyODA4MX0.I_5Ez92tgLTSAhywClYCNn-gg4bIfrlZ7F8mAuf2Ma4";
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function testInsert() {
+      const { data, error } = await supabase
+        .from("notes")
+        .insert([{ 
+          text: "Hello Note!", 
+          color: "#FFFF87",
+          x: "50px",
+          y: "50px"
+        }])
+        .select();
+
+      console.log({ data, error });
+      if (error) alert("Insert Failed: " + error.message);
+      else alert("Insert Success!");
+    }
+
+    testInsert();
+  </script>
+</body>
+</html>
